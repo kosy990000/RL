@@ -123,10 +123,10 @@ class advDQN:
             lr=0.00025,
             epsilon=1.0,
             epsilon_min=0.1,
-            gamma=0.99,
-            batch_size=32,
+            gamma=0.90,
+            batch_size=64,
             warmup_steps=5000,
-            buffer_size=int(1e5),
+            buffer_size=int(3*1e4),
             target_update_interval=5000,
     ):
         self.action_dim = action_dim

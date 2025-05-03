@@ -31,7 +31,7 @@ class DQN:
         self.optimizer = torch.optim.RMSprop(self.network.parameters(), lr)
 
         self.buffer = ReplayBuffer(state_dim, (1,), buffer_size)
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
         self.network.to(self.device)
         self.target_network.to(self.device)
 
@@ -42,28 +42,23 @@ class DQN:
     def act(self, x, training=True):
         self.network.train(training)
         if training and ((np.random.rand() < self.epsilon) or (self.total_steps < self.warmup_steps)):
-            # a is random actions
             a = np.random.randint(0, self.action_dim)
         else:
-            # x = image
             x = torch.from_numpy(x).float().unsqueeze(0).to(self.device)
-            # q = output actions distribution
             q = self.network(x)
             a = torch.argmax(q).item()
         return a
 
-    
     def learn(self):
         s, a, r, s_prime, terminated = map(lambda x: x.to(self.device), self.buffer.sample(self.batch_size))
-        # brings target value in target network 
+
         next_q = self.target_network(s_prime).detach()
 
-        # max.values => bring max(q', a') in target network
-        td_target = r + (1. - terminated) * self.gamma * next_q.max(dim=1, keepdim=True).values
-        #loss -? td_target - real time network (q, a)
-        loss = F.mse_loss(self.network(s).gather(1, a.long()), td_target)
+        ###############  Write Code #################
+        td_target = r + (1. - terminated) *
+        #############################################
 
-        # step
+        loss = F.mse_loss(self.network(s).gather(1, a.long()), td_target)
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
@@ -72,7 +67,6 @@ class DQN:
             'total_steps': self.total_steps,
             'value_loss': loss.item()
         }
-        
         return result
 
     def process(self, transition):
@@ -104,10 +98,10 @@ class ReplayBuffer:
     def update(self, s, a, r, s_prime, terminated):
 
         ############### Write Code ##########################
-        self.s[self.ptr] = s
-        self.a[self.ptr] = a
-        self.r[self.ptr] = r
-        self.s_prime[self.ptr] = s_prime
+        self.s[self.ptr] =
+        self.a[self.ptr] =
+        self.r[self.ptr] =
+        self.s_prime[self.ptr] =
         self.terminated[self.ptr] = terminated
         ######################################################
 

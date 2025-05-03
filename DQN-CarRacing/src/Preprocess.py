@@ -7,7 +7,7 @@ def preprocess(img):
     # img = cv2.resize(img, dsize=(84, 84)) # or you can simply use rescaling
 
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY) / 255.0
-    return img
+    return img.astype(np.float32)
 
 
 class ImageEnv(gym.Wrapper):

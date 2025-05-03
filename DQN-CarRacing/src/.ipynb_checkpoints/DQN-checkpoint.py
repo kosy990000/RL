@@ -88,7 +88,9 @@ class DQN:
         self.epsilon -= self.epsilon_decay
         return result
 
-
+    def setTargetNetwork(self, load_state_dict)
+        self.target_network.load_state_dict(load_state_dict)
+    
 class ReplayBuffer:
     def __init__(self, state_dim, action_dim, max_size=int(1e5)):
         self.s = np.zeros((max_size, *state_dim), dtype=np.float32)

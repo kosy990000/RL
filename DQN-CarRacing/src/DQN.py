@@ -123,7 +123,7 @@ class advDQN:
             lr=0.00025,
             epsilon=1.0,
             epsilon_min=0.1,
-            gamma=0.90,
+            gamma=0.99,
             batch_size=64,
             warmup_steps=5000,
             buffer_size=int(3*1e4),

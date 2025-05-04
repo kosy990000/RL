@@ -65,20 +65,27 @@ class setPenaltyAndPreprocess(gym.Wrapper):
             # ----- 리워드 수정 -----
 
             count = 0
+
             for (x, y) in self.rois:
                 roi = s[y-2:y+2, x-2:x+2]
                 mean = roi.mean(axis=(0,1))
                 if self._is_gray(mean):
                     count += 1
+                
             
             r += self.penalty * count
 
+            if (count == 0): #잔디에 있는 경우 페널티 대신 더 강한 페널티를 부여
+                r -= self.penalty * 8 
+
             reward += r
+
+            # -----------------------
 
             if terminated or truncated:
                 break
             
-            # ------ 여기서 바로 ROI 표시 ------
+            #  표시
             #self._show_roi_live(s)
 
 

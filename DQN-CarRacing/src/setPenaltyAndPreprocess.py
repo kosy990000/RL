@@ -1,6 +1,8 @@
 import gymnasium as gym
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
+    
 
 def preprocess(img):
     img = img[:84, 6:90]  # CarRacing-v2-specific cropping
@@ -11,14 +13,14 @@ def preprocess(img):
 
 
 
-class setPenaltyAndPreprocess(gym.RewardWrapper):
+class setPenaltyAndPreprocess(gym.Wrapper):
     def __init__(            
             self,
             env,
             skip_frames=4,
             stack_frames=4,
             initial_no_op=50,
-            penalty = 0.1,
+            penalty = 0.025,
             **kwargs):
         super(setPenaltyAndPreprocess, self).__init__(env, **kwargs)
         
@@ -68,12 +70,17 @@ class setPenaltyAndPreprocess(gym.RewardWrapper):
                 mean = roi.mean(axis=(0,1))
                 if self._is_gray(mean):
                     count += 1
+            
             r += self.penalty * count
 
             reward += r
 
             if terminated or truncated:
                 break
+            
+            # ------ 여기서 바로 ROI 표시 ------
+            #self._show_roi_live(s)
+
 
         # Convert a frame to 84 X 84 gray scale one
         s = preprocess(s)
@@ -88,4 +95,24 @@ class setPenaltyAndPreprocess(gym.RewardWrapper):
         r, g, b = rgb
         return abs(r - g) < thr and abs(g - b) < thr and abs(r - b) < thr
 
+    
+    def _show_roi_live(self, obs, roi_size=4):
+        obs_copy = obs.copy()
 
+        for (x, y) in self.rois:
+            x1, y1 = x - roi_size // 2, y - roi_size // 2
+            x2, y2 = x + roi_size // 2, y + roi_size // 2
+
+            roi = obs[y1:y2, x1:x2]
+            mean = roi.mean(axis=(0, 1))
+
+            color = (0, 255, 0) if self._is_gray(mean) else (0, 0, 255)
+
+            obs_copy = cv2.rectangle(obs_copy, (x1, y1), (x2, y2), color, 1)
+
+        obs_copy = cv2.cvtColor(obs_copy, cv2.COLOR_BGR2RGB)
+        plt.imshow(obs_copy)
+        plt.title(f"ROI (Step)")
+        plt.axis("off")
+        plt.pause(0.01)   # <-- 이거 넣어야 실시간 갱신됨
+        plt.clf()

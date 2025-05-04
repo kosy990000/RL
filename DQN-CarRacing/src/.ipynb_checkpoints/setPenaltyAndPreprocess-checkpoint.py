@@ -1,6 +1,8 @@
 import gymnasium as gym
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
+    
 
 def preprocess(img):
     img = img[:84, 6:90]  # CarRacing-v2-specific cropping
@@ -68,6 +70,9 @@ class setPenaltyAndPreprocess(gym.RewardWrapper):
                 mean = roi.mean(axis=(0,1))
                 if self._is_gray(mean):
                     count += 1
+
+            
+            show_roi(s, rois)
             r += self.penalty * count
 
             reward += r
@@ -88,4 +93,25 @@ class setPenaltyAndPreprocess(gym.RewardWrapper):
         r, g, b = rgb
         return abs(r - g) < thr and abs(g - b) < thr and abs(r - b) < thr
 
+    
+    def show_roi(self, obs, rois, roi_size=4):
+        # obs는 (96, 96, 3) 이어야 함 → 이걸 그대로 복사
+        obs_copy = obs.copy()
+    
+        # ROI 그리기
+        for (x, y) in rois:
+            x1, y1 = x - roi_size // 2, y - roi_size // 2
+            x2, y2 = x + roi_size // 2, y + roi_size // 2
+    
+            # 빨간 사각형 그리기
+            obs_copy = cv2.rectangle(obs_copy, (x1, y1), (x2, y2), (255, 0, 0), 1)
+    
+        # RGB로 변환 (cv2는 BGR임 → matplotlib은 RGB 필요)
+        obs_copy = cv2.cvtColor(obs_copy, cv2.COLOR_BGR2RGB)
+    
+        # 표시
+        plt.imshow(obs_copy)
+        plt.title("ROI Area Visualization")
+        plt.axis("off")
+        plt.show()
 

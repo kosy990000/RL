@@ -79,6 +79,7 @@ AvgPool (2x2, stride=2)
 Conv2D (64 filters, 3x3, stride=1, padding=1) + BatchNorm + ReLU -> [N, 64, 10, 10]
 AvgPool (2x2, stride=2)
 ```
+![advDQN car racing Result](./DQN-CarRacing/advDQN_car_racing_result.gif)
 
 **결과 (Episode 20)**
 
@@ -95,7 +96,10 @@ AvgPool (2x2, stride=2)
 - 도로, 잔디를 구분하여 reward 부여
 - 자동차 좌표 고정 → 주변 지형 기반 보상 계산
 - 평가 시 reward 변경 X (학습 시만 변경)
-![change_reward car racing Result](./DQN-CarRacing/advDQN_car_racing_result.gif)
+
+![change_reward car racing Result](./DQN-CarRacing/advDQN_ei_car_racing_result.gif)
+
+
 **결과 (Episode 20)**
 
 | Mean | Std | Max | Min |

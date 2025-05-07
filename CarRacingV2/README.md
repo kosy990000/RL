@@ -108,6 +108,8 @@ AvgPool (2x2, stride=2)
 
 - Double DQN 방식으로 target error 계산
 
+![DDQN Car Racing Result](CarRacingV2/DDQN-CarRacing/DDQN_car_racing_result.gif)
+
 **결과 (Episode 20)**
 
 | Mean | Std | Max | Min |

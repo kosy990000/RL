@@ -149,4 +149,5 @@ AvgPool (2x2, stride=2)
 - 초기 transition에 의한 DDQN 성능 저하
  -> Prioritized Experience Replay기법 도입 필요
 
+![report](./강화학습report.pdf)
 

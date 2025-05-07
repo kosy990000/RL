@@ -97,7 +97,7 @@ AvgPool (2x2, stride=2)
 - 자동차 좌표 고정 → 주변 지형 기반 보상 계산
 - 평가 시 reward 변경 X (학습 시만 변경)
 
-![change_reward car racing Result](./DQN-CarRacing/advDQN_ei_car_racing_result.gif)
+![change_reward car racing Result](./DQN-CarRacing/DQN_ei_car_racing_result.gif)
 
 
 **결과 (Episode 20)**

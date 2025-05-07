@@ -48,6 +48,9 @@ target_update_interval: 10000
 epsilon_decay: 0.000009
 ```
 
+![normalDQN car racing Result](./DQN-CarRacing/nomal_car_racing_result.gif)
+
+
 **결과 (Episode 20)**
 
 | Mean | Std | Max | Min |

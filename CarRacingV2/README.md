@@ -63,8 +63,8 @@ epsilon_decay: 0.000009
 **변경한 설정**
 
 ```
-batch_size: 64
-target_update_interval: 5000
+-> batch_size: 64
+-> target_update_interval: 5000
 ```
 
 **CNN 구조**
@@ -135,9 +135,9 @@ AvgPool (2x2, stride=2)
 
 ## 결론
 
-- 충분한 학습 스텝 부족 → 수렴 어려움
+- 충분한 학습 스텝 부족 -> 수렴 부족
 - 평가 효율성 문제 (멀티스레드 부재)
 - 초기 transition에 의한 DDQN 성능 저하
-- **Prioritized Experience Replay** 기법 도입 필요
+ -> Prioritized Experience Replay기법 도입 필요
 
-> https://github.com/kosy990000/RL/tree/main/CarRacingV2
+

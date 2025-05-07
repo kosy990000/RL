@@ -144,7 +144,7 @@ AvgPool (2x2, stride=2)
 
 ## 결론
 
-- 충분한 학습 스텝 부족 -> 수렴 부족
+- 충분한 학습 스텝 부족 -> 수렴 부족, 높은 표준편차
 - 평가 효율성 문제 (멀티스레드 부재)
 - 초기 transition에 의한 DDQN 성능 저하
  -> Prioritized Experience Replay기법 도입 필요

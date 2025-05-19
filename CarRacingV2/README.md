@@ -1,5 +1,5 @@
 
-# 강화학습 과제 2 (Gym CarRacing V2)
+# 강화학습 (Gym CarRacing V2)
 
 ## Action
 

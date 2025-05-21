@@ -1,8 +1,6 @@
 # RL
 # TASK: MiniGrid 6x6 empty
 
-<img src= width="400"/>
-
 ---
 
 ## 환경 설명
